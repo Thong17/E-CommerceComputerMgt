@@ -44,6 +44,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -57,8 +58,11 @@
     <Compile Include="AccessModel\ProductBrand.cs" />
     <Compile Include="AccessModel\ProductCategory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModel\AddProductDetailsViewModel.cs" />
     <Compile Include="ViewModel\CreateProductViewModel.cs" />
+    <Compile Include="ViewModel\EditProductViewModel.cs" />
     <Compile Include="ViewModel\ListProductsViewModel.cs" />
+    <Compile Include="ViewModel\ProductDetailsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

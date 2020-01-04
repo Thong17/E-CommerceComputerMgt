@@ -4,6 +4,7 @@ using ECommerceComMgt.ViewModel;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -121,6 +122,61 @@ namespace ECommerceComMgt.Controllers
             AppDbContext dbContext = new AppDbContext();
             IEnumerable<ListProductsViewModel> products = dbContext.GetProducts;
             return View(products);
+        }
+        [HttpGet]
+        public ActionResult EditProduct(int id)
+        {
+            AppDbContext dbContext = new AppDbContext();
+            ListProductsViewModel productDetail = dbContext.GetProducts.SingleOrDefault(p => p.Id == id);
+
+            AddProductDetailsViewModel product = new AddProductDetailsViewModel
+            {
+                ProductId = productDetail.Id,
+            };
+
+            return View(product);
+        }
+
+        [HttpPost]
+        public ActionResult EditProduct(HttpPostedFileBase PhotoPath, AddProductDetailsViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                AppDbContext dbContext = new AppDbContext();
+                ListProductsViewModel productDetail = dbContext.GetProducts.SingleOrDefault(p => p.Id == model.ProductId);
+                var PhotoTitle = Path.GetFileName(PhotoPath.FileName);
+                var path = "~/App_Data/" + productDetail.Name;
+                var PhotoUrl = Server.MapPath(path);
+
+                if (!Directory.Exists(PhotoUrl))
+                {
+                    Directory.CreateDirectory(PhotoUrl);
+                }
+
+                var PathUrl = Path.Combine(PhotoUrl, PhotoTitle);
+
+                PhotoPath.SaveAs(PathUrl);
+
+                AddProductDetailsViewModel product = new AddProductDetailsViewModel
+                {
+                    Price = model.Price,
+                    Color = model.Color,
+                    Storage = model.Storage,
+                    Processor = model.Processor,
+                    Memory = model.Memory,
+                    Display = model.Display,
+                    CreatedBy = User.Identity.Name,
+                    CreatedDate = DateTime.Now,
+                    PhotoPath = PathUrl,
+                    PhotoTitle = PhotoTitle.ToString(),
+                    PhotoSrc = PhotoUrl,
+                    ProductId = model.ProductId
+                };
+
+                dbContext.AddProductDetails(product);
+                return RedirectToAction("Index");
+            }
+            return View();
         }
     }
 }

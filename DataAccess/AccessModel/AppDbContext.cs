@@ -186,5 +186,78 @@ namespace DataAccess.AccessModel
                 return products;
             }
         }
+        public void AddProductDetails(AddProductDetailsViewModel productDetails)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["EComMgt"].ConnectionString;
+
+            using(SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("addProductDetails", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter paramPrice = new SqlParameter();
+                paramPrice.ParameterName = "@Price";
+                paramPrice.Value = productDetails.Price;
+                cmd.Parameters.Add(paramPrice);
+
+                SqlParameter paramColor = new SqlParameter();
+                paramColor.ParameterName = "@Color";
+                paramColor.Value = productDetails.Color;
+                cmd.Parameters.Add(paramColor);
+
+                SqlParameter paramStorage = new SqlParameter();
+                paramStorage.ParameterName = "@Storage";
+                paramStorage.Value = productDetails.Storage;
+                cmd.Parameters.Add(paramStorage);
+
+                SqlParameter paramProcessor = new SqlParameter();
+                paramProcessor.ParameterName = "@Processor";
+                paramProcessor.Value = productDetails.Processor;
+                cmd.Parameters.Add(paramProcessor);
+
+                SqlParameter paramMemory = new SqlParameter();
+                paramMemory.ParameterName = "@Memory";
+                paramMemory.Value = productDetails.Memory;
+                cmd.Parameters.Add(paramMemory);
+
+                SqlParameter paramDisplay = new SqlParameter();
+                paramDisplay.ParameterName = "@Display";
+                paramDisplay.Value = productDetails.Display;
+                cmd.Parameters.Add(paramDisplay);
+
+                SqlParameter paramProductId = new SqlParameter();
+                paramProductId.ParameterName = "@ProductId";
+                paramProductId.Value = productDetails.ProductId;
+                cmd.Parameters.Add(paramProductId);
+
+                SqlParameter paramCreatedBy = new SqlParameter();
+                paramCreatedBy.ParameterName = "@CreatedBy";
+                paramCreatedBy.Value = productDetails.CreatedBy;
+                cmd.Parameters.Add(paramCreatedBy);
+
+                SqlParameter paramCreatedDate = new SqlParameter();
+                paramCreatedDate.ParameterName = "@CreatedDate";
+                paramCreatedDate.Value = productDetails.CreatedDate;
+                cmd.Parameters.Add(paramCreatedDate);
+
+                SqlParameter paramPhotoPath = new SqlParameter();
+                paramPhotoPath.ParameterName = "@Path";
+                paramPhotoPath.Value = productDetails.PhotoPath;
+                cmd.Parameters.Add(paramPhotoPath);
+
+                SqlParameter paramPhotoTitle = new SqlParameter();
+                paramPhotoTitle.ParameterName = "@Title";
+                paramPhotoTitle.Value = productDetails.PhotoTitle;
+                cmd.Parameters.Add(paramPhotoTitle);
+
+                SqlParameter paramPhotoSrc = new SqlParameter();
+                paramPhotoSrc.ParameterName = "@Src";
+                paramPhotoSrc.Value = productDetails.PhotoSrc;
+                cmd.Parameters.Add(paramPhotoSrc);
+
+                con.Open();
+                cmd.ExecuteNonQuery();                                                                                                                                                  
+            }
+        }                
     }
 }
