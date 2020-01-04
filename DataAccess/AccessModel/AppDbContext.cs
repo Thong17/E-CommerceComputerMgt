@@ -258,6 +258,49 @@ namespace DataAccess.AccessModel
                 con.Open();
                 cmd.ExecuteNonQuery();                                                                                                                                                  
             }
-        }                
+        }
+        public IEnumerable<ProductDetailsViewModel> GetProductDetails(int Id)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["EComMgt"].ConnectionString;
+            List<ProductDetailsViewModel> productsDetails = new List<ProductDetailsViewModel>();
+
+            using(SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("getProductsDetails", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                con.Open();
+
+                SqlParameter paramId = new SqlParameter();
+                paramId.ParameterName = "@ProductId";
+                paramId.Value = Id;
+
+                cmd.Parameters.Add(paramId);
+
+
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ProductDetailsViewModel productDetails = new ProductDetailsViewModel();
+                    productDetails.Name = rdr["Name"].ToString();
+                    productDetails.Details = rdr["Details"].ToString();
+                    productDetails.Brand = rdr["Brand"].ToString();
+                    productDetails.Category = rdr["Category"].ToString();
+                    productDetails.Price = Convert.ToDouble(rdr["Price"]);
+                    productDetails.Color = rdr["Color"].ToString();
+                    productDetails.Storage = rdr["Storage"].ToString();
+                    productDetails.Processor = rdr["Processor"].ToString();
+                    productDetails.Memory = rdr["Memory"].ToString();
+                    productDetails.Display = rdr["Display"].ToString();
+                    productDetails.ProductId = Convert.ToInt32(rdr["DetailsId"]);
+                    
+
+                    productsDetails.Add(productDetails);
+                }
+            }
+            return productsDetails;
+            
+        }
     }
 }

@@ -19,11 +19,7 @@ namespace DataAccess.ViewModel
         public string Processor { get; set; }
         public string Memory { get; set; }
         public string Display { get; set; }
+        public string Details { get; set; }
         public int ProductId { get; set; }
-        public string CreatedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string PhotoPath { get; set; }
-        public string PhotoTitle { get; set; }
-        public string PhotoSrc { get; set; }
     }
 }

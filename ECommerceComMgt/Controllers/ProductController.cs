@@ -144,18 +144,20 @@ namespace ECommerceComMgt.Controllers
             {
                 AppDbContext dbContext = new AppDbContext();
                 ListProductsViewModel productDetail = dbContext.GetProducts.SingleOrDefault(p => p.Id == model.ProductId);
-                var PhotoTitle = Path.GetFileName(PhotoPath.FileName);
+                var fileName = Path.GetFileName(PhotoPath.FileName);
                 var path = "~/App_Data/" + productDetail.Name;
-                var PhotoUrl = Server.MapPath(path);
+                var photoUrl = Server.MapPath(path);
+                var photoTitle = Path.GetFileNameWithoutExtension(PhotoPath.FileName);
+                var uniqName = Guid.NewGuid().ToString() + "_" + fileName;
 
-                if (!Directory.Exists(PhotoUrl))
+                if (!Directory.Exists(photoUrl))
                 {
-                    Directory.CreateDirectory(PhotoUrl);
+                    Directory.CreateDirectory(photoUrl);
                 }
 
-                var PathUrl = Path.Combine(PhotoUrl, PhotoTitle);
+                var photoPath = Path.Combine(photoUrl, uniqName);
 
-                PhotoPath.SaveAs(PathUrl);
+                PhotoPath.SaveAs(photoPath);
 
                 AddProductDetailsViewModel product = new AddProductDetailsViewModel
                 {
@@ -167,16 +169,24 @@ namespace ECommerceComMgt.Controllers
                     Display = model.Display,
                     CreatedBy = User.Identity.Name,
                     CreatedDate = DateTime.Now,
-                    PhotoPath = PathUrl,
-                    PhotoTitle = PhotoTitle.ToString(),
-                    PhotoSrc = PhotoUrl,
+                    PhotoPath = photoPath,
+                    PhotoTitle = photoTitle.ToString(),
+                    PhotoSrc = photoUrl,
                     ProductId = model.ProductId
                 };
 
                 dbContext.AddProductDetails(product);
-                return RedirectToAction("Index");
+                return RedirectToAction("Products");
             }
             return View();
+        }
+
+        public ActionResult ProductDetails(int id)
+        {
+            AppDbContext dbContext = new AppDbContext();
+            List<ProductDetailsViewModel> productDetails = dbContext.GetProductDetails(id).ToList();
+            ViewBag.Id = id;
+            return View(productDetails);
         }
     }
 }
