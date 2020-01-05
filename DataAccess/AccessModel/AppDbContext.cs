@@ -302,5 +302,46 @@ namespace DataAccess.AccessModel
             return productsDetails;
             
         }
+        public IEnumerable<ProductPhotoViewModel> GetProductPhotos(int Id)
+        {
+            string cs = ConfigurationManager.ConnectionStrings["EComMgt"].ConnectionString;
+            List<ProductPhotoViewModel> productPhotos = new List<ProductPhotoViewModel>();
+
+            using(SqlConnection con = new SqlConnection(cs))
+            {
+                SqlCommand cmd = new SqlCommand("getProductPhoto", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                con.Open();
+
+                SqlParameter paramDetailsId = new SqlParameter();
+                paramDetailsId.ParameterName = "@DetailsId";
+                paramDetailsId.Value = Id;
+
+                cmd.Parameters.Add(paramDetailsId);
+
+                SqlDataReader rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    ProductPhotoViewModel productPhoto = new ProductPhotoViewModel();
+                    if (!rdr.HasRows)
+                    {
+                        productPhoto.Id = Id;
+                        productPhoto.PhotoPath = "pathToNoImage";
+                        productPhoto.PhotoTitle = "No Image";
+                        productPhotos.Add(productPhoto);
+                    }
+                    else
+                    {
+                        productPhoto.Id = Convert.ToInt32(rdr["Id"]);
+                        productPhoto.PhotoPath = rdr["Path"].ToString();
+                        productPhoto.PhotoTitle = rdr["Title"].ToString();
+
+                        productPhotos.Add(productPhoto);
+                    }
+                }
+            }
+            return productPhotos;
+        } 
     }
 }

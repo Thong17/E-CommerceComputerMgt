@@ -1,8 +1,8 @@
-﻿@model IEnumerable<DataAccess.ViewModel.ProductDetailsViewModel>
+﻿@model IEnumerable<DataAccess.AccessModel.ProductDetails>
 
-    <p>
-        @Html.ActionLink("Create new", "EditProduct", new { id = ViewBag.Id }) |
-    </p>
+<p>
+    @Html.ActionLink("Create New", "EditProduct", new { ViewBag.Id })
+</p>
 <table class="table">
     <tr>
         <th>
@@ -34,9 +34,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductId)
         </th>
         <th></th>
     </tr>
@@ -74,12 +71,9 @@
             @Html.DisplayFor(modelItem => item.Details)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.ProductId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
         </td>
     </tr>
 }

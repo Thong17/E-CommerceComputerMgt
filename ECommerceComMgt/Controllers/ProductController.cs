@@ -185,8 +185,29 @@ namespace ECommerceComMgt.Controllers
         {
             AppDbContext dbContext = new AppDbContext();
             List<ProductDetailsViewModel> productDetails = dbContext.GetProductDetails(id).ToList();
+            List<ProductDetails> details = new List<ProductDetails>();
+            foreach(var productDetail in productDetails)
+            {
+                List<ProductPhotoViewModel> productPhotos = dbContext.GetProductPhotos(productDetail.ProductId).ToList();
+                ProductDetails detail = new ProductDetails();
+                detail.Id = productDetail.ProductId;
+                detail.Name = productDetail.Name;
+                detail.Brand = productDetail.Brand;
+                detail.Category = productDetail.Category;
+                detail.Price = productDetail.Price;
+                detail.Color = productDetail.Color;
+                detail.Storage = productDetail.Storage;
+                detail.Processor = productDetail.Processor;
+                detail.Memory = productDetail.Memory;
+                detail.Display = productDetail.Display;
+                detail.Details = productDetail.Details;
+                detail.Photos = productPhotos;
+
+                details.Add(detail);
+            }
             ViewBag.Id = id;
-            return View(productDetails);
+
+            return View(details);
         }
     }
 }
