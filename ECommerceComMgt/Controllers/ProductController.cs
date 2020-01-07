@@ -120,7 +120,22 @@ namespace ECommerceComMgt.Controllers
         public ActionResult Products()
         {
             AppDbContext dbContext = new AppDbContext();
-            IEnumerable<ListProductsViewModel> products = dbContext.GetProducts;
+            List<ListProductsViewModel> products = dbContext.GetProducts.ToList();
+            foreach (var product in products.ToList())
+            {
+                List<ProductDetailsViewModel> productDetails = dbContext.GetProductDetails(product.Id).ToList();
+                product.Products = productDetails;
+
+                ViewBag.Id = product.Id;
+                foreach (var detail in productDetails)
+                {
+                    List<ProductPhotoViewModel> photos = dbContext.GetProductPhotos(detail.ProductId).ToList();
+                    product.Photos = photos;
+                }
+                
+            }
+
+            
             return View(products);
         }
         [HttpGet]
@@ -128,10 +143,13 @@ namespace ECommerceComMgt.Controllers
         {
             AppDbContext dbContext = new AppDbContext();
             ListProductsViewModel productDetail = dbContext.GetProducts.SingleOrDefault(p => p.Id == id);
-
+            
             AddProductDetailsViewModel product = new AddProductDetailsViewModel
             {
-                ProductId = productDetail.Id,
+                Name = productDetail.Name,
+                Brand = productDetail.Brand,
+                Category = productDetail.Category,
+                ProductId = productDetail.Id
             };
 
             return View(product);
@@ -145,7 +163,7 @@ namespace ECommerceComMgt.Controllers
                 AppDbContext dbContext = new AppDbContext();
                 ListProductsViewModel productDetail = dbContext.GetProducts.SingleOrDefault(p => p.Id == model.ProductId);
                 var fileName = Path.GetFileName(PhotoPath.FileName);
-                var path = "~/App_Data/" + productDetail.Name;
+                var path = "/Public/Products/" + productDetail.Name;
                 var photoUrl = Server.MapPath(path);
                 var photoTitle = Path.GetFileNameWithoutExtension(PhotoPath.FileName);
                 var uniqName = Guid.NewGuid().ToString() + "_" + fileName;
@@ -171,7 +189,7 @@ namespace ECommerceComMgt.Controllers
                     CreatedDate = DateTime.Now,
                     PhotoPath = photoPath,
                     PhotoTitle = photoTitle.ToString(),
-                    PhotoSrc = photoUrl,
+                    PhotoSrc = path+'/'+uniqName,
                     ProductId = model.ProductId
                 };
 
@@ -181,10 +199,10 @@ namespace ECommerceComMgt.Controllers
             return View();
         }
 
-        public ActionResult ProductDetails(int id)
+        public ActionResult ProductDetails(int? id)
         {
             AppDbContext dbContext = new AppDbContext();
-            List<ProductDetailsViewModel> productDetails = dbContext.GetProductDetails(id).ToList();
+            List<ProductDetailsViewModel> productDetails = dbContext.GetProductDetails(id ?? 19).ToList();
             List<ProductDetails> details = new List<ProductDetails>();
             foreach(var productDetail in productDetails)
             {

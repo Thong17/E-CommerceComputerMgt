@@ -327,13 +327,14 @@ namespace DataAccess.AccessModel
                     if (!rdr.HasRows)
                     {
                         productPhoto.Id = Id;
-                        productPhoto.PhotoPath = "pathToNoImage";
+                        productPhoto.PhotoSrc = "pathToNoImage";
                         productPhoto.PhotoTitle = "No Image";
                         productPhotos.Add(productPhoto);
                     }
                     else
                     {
                         productPhoto.Id = Convert.ToInt32(rdr["Id"]);
+                        productPhoto.PhotoSrc = rdr["Src"].ToString();
                         productPhoto.PhotoPath = rdr["Path"].ToString();
                         productPhoto.PhotoTitle = rdr["Title"].ToString();
 

@@ -1,58 +1,126 @@
-﻿@model IEnumerable<DataAccess.ViewModel.ListProductsViewModel>
+﻿@model List<DataAccess.ViewModel.ListProductsViewModel>
 
-<p>
-    @Html.ActionLink("Create New", "AddProduct")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Brand)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CreatedBy)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Details)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Category)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Brand)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedBy)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Details)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Details", "ProductDetails", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-            </td>
-        </tr>
-    }
 
-</table>
+@{ 
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+
+
+<div class="slider">
+    <div class="sub-content">
+        <h1>Shop sidebar</h1>
+        <br>
+        <p>Home / Shop Sidebar</p>
+    </div>
+</div>
+<div class="content">
+    <div class="side-bar">
+        <div class="filter-menu">
+            <h3>Filter by price</h3>
+            <div class="price-slider">
+                <!-- Range slider -->
+                <div id="pmd-slider-value-range" class="pmd-range-slider" min="0" max="9999"></div>
+                <!-- Price input -->
+                <div class="rangePrice">
+                    <p>Price:</p>
+                    &nbsp;&nbsp;
+                    <label for="min" id="value-min"></label>
+                    <div class="span"></div>
+                    <label for="max" id="value-max"></label>
+                </div>
+            </div>
+            <br />
+        </div>
+        <div class="side-menu">
+            <h3>Product Brand</h3>
+            <ul>
+                @foreach (var item in Model)
+                {
+                    <li>
+                        <a href="/Product/ProductDetails/@item.Id">
+                            @item.Brand
+                            <p>@item.Products.Count</p>
+                        </a>
+                    </li>
+                }
+
+            </ul>
+            <div class="action-links">
+                @Html.ActionLink("Add Brand", "AddBrand", "Product", null, new { @class = "action-link-item" })
+                @Html.ActionLink("Add Category", "AddCategory", "Product", null, new { @class = "action-link-item" })
+            </div>
+
+            <hr class="style-six">
+        </div>
+    </div>
+    <div class="product-list">
+        <div class="product-list-header">
+            <h3>All products</h3>
+            <div class="product-list-result">
+                <div class="product-sort">
+                    <p>Sort by date</p>
+                    <div class="dropdown"></div>
+                </div>
+                <p>Showing result 1 - 15 of 25 results</p>
+            </div>
+        </div>
+
+        <div class="product-list-items">
+            @foreach (var item in Model)
+            {
+                foreach (var product in item.Products)
+                {
+                    <a href="" class="item">
+                        @foreach (var photo in item.Photos)
+                        {
+                            <div class="item-img">
+                                <img src="@photo.PhotoSrc" alt="@photo.PhotoTitle" srcset="">
+                            </div>
+                        }
+
+                        <div class="item-detail">
+                            <h5>@product.Name</h5>
+                            <h5>@product.Storage</h5>
+                            <div class="price">
+                                <p>$@product.Price</p>
+                                <p>$1799</p>
+                            </div>
+
+                        </div>
+                    </a>
+                    }
+                }
+
+
+        </div>
+        <div class="action-btn">
+            <div class="prev">
+                <img src="~/Public/Logo/iconfinder_right_1303890.svg" alt="" srcset="">
+            </div>
+            <div class="pages">
+                <div class="page-number">
+                    <a href="" class="active">1</a>
+                </div>
+                <div class="page-number">
+                    <a href="">2</a>
+                </div>
+                <div class="page-number">
+                    <a href="">3</a>
+                </div>
+                <div class="page-number">
+                    <a href="">4</a>
+                </div>
+                <div class="page-number">
+                    <a href="">5</a>
+                </div>
+                <div class="page-number">
+                    <a href="">...</a>
+                </div>
+            </div>
+            <div class="next">
+                <img src="~/Public/Logo/iconfinder_right_1303890.svg" alt="" srcset="">
+            </div>
+        </div>
+    </div>
+</div>

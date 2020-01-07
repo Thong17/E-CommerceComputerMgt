@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@Page.Title</title>
+    @RenderSection("head", required: false)
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="~/Content/nouislider.css" rel="stylesheet" />
+    <link href="~/Content/textfield.css" rel="stylesheet" />
+    <link href="~/Content/checkbox.css" rel="stylesheet" />
+    <link href="~/Content/range-slider.css" rel="stylesheet" />
+    <link href="~/Content/rangeSlider.css" rel="stylesheet" />
+    <link href="~/Content/Main.css" rel="stylesheet" />
+
+</head>
+<body>
+    <header>
+        <main>
+            <div class="search-bar">
+                <div class="close">
+                    <div class="span1"></div>
+                    <div class="span2"></div>
+                </div>
+                <input type="text" name="" id="" placeholder="Search...">
+                <a href="">
+                    <img src="~/Public/Logo/search.svg" alt="" srcset="">
+                </a>
+            </div>
+            <nav>
+                <div class="logo">
+                    <i class="fa fa-code" aria-hidden="true"></i>
+                </div>
+                <ul>
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Portfolio</a></li>
+                    <li><a href="">Blog</a></li>
+                    <li><a href="">Shop</a></li>
+                    <li><a href="">Pages</a></li>
+                    <li><a href="">Contact</a></li>
+                </ul>
+                <div class="activity">
+                    <button href="" class="activity-item" onclick="" id="search-btn">
+                        <img src="~/Public/Logo/iconfinder_-_Magnifier-Search-Zoom-_3844467.svg" alt="" srcset="">
+                    </button>
+                    <a href="" class="activity-item">
+                        <img src="~/Public/Logo/iconfinder_about_4092564.svg" alt="" srcset="">
+                    </a>
+                    <a href="" class="activity-item">
+                        <img src="~/Public/Logo/iconfinder_Essentials_shopping_cart_5298755.svg" alt="" srcset="">
+                    </a>
+                </div>
+            </nav>
+            @RenderBody()
+        </main>
+    </header>
+    <footer>
+    </footer>
+    <!-- Jquery js -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+    <!-- Slider js -->
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/wNumb.js"></script>
+    <script src="~/Scripts/nouislider.js"></script>
+    <script src="~/Scripts/Script.js"></script>
+</body>
+</html>

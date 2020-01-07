@@ -185,7 +185,13 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\checkbox.css" />
+    <Content Include="Content\Main.css" />
+    <Content Include="Content\nouislider.css" />
+    <Content Include="Content\Page-menu.css" />
+    <Content Include="Content\range-slider.css" />
     <Content Include="Content\rangeSlider.css" />
+    <Content Include="Content\textfield.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -203,7 +209,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\nouislider.js" />
     <Content Include="Scripts\Script.js" />
+    <Content Include="Scripts\wNumb.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -246,10 +254,14 @@
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\Product\EditProduct.cshtml" />
     <Content Include="Views\Product\ProductDetails.cshtml" />
+    <Content Include="Views\Shared\_Empty.cshtml" />
+    <Content Include="Views\Shared\_Page-menu.cshtml" />
+    <Content Include="Views\Shared\_Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Public\Logo\" />
+    <Folder Include="Public\Products\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

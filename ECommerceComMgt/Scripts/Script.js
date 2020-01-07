@@ -1,4 +1,23 @@
-﻿
+﻿var i = 0;
+$(document).ready(function () {
+
+    $(window).on('scroll', function () {
+        $('nav').toggleClass('nav-hide', $(window).scrollTop() > i);
+        i = $(window).scrollTop();
+        if ($(window).scrollTop()) {
+            $('nav').addClass('nav-show');
+        } else {
+            $('nav').removeClass('nav-show');
+        }
+    });
+    $('#search-btn').on('click', function () {
+        $('.search-bar').addClass('search-bar-show');
+    });
+    $('.close').on('click', function () {
+        $('.search-bar').removeClass('search-bar-show');
+    });
+});
+
 // multiple handled with value 
 var pmdSliderValueRange = document.getElementById('pmd-slider-value-range');
 

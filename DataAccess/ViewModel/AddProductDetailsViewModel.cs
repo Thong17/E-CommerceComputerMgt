@@ -10,6 +10,9 @@ namespace DataAccess.ViewModel
 {
     public class AddProductDetailsViewModel
     {
+        public string Name { get; set; }
+        public string Brand { get; set; }
+        public string Category { get; set; }
         [Required]
         [DataType(DataType.Currency)]
         public double Price { get; set; }
