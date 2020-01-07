@@ -72,7 +72,7 @@
                 foreach (var product in item.Products)
                 {
                     <a href="" class="item">
-                        @foreach (var photo in item.Photos)
+                        @foreach (var photo in product.Photos)
                         {
                             <div class="item-img">
                                 <img src="@photo.PhotoSrc" alt="@photo.PhotoTitle" srcset="">

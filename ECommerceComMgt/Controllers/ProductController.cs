@@ -130,7 +130,7 @@ namespace ECommerceComMgt.Controllers
                 foreach (var detail in productDetails)
                 {
                     List<ProductPhotoViewModel> photos = dbContext.GetProductPhotos(detail.ProductId).ToList();
-                    product.Photos = photos;
+                    detail.Photos = photos;
                 }
                 
             }

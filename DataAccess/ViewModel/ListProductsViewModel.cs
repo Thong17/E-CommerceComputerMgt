@@ -16,6 +16,5 @@ namespace DataAccess.ViewModel
         public string Brand { get; set; }
         public string Category { get; set; }
         public List<ProductDetailsViewModel> Products { get; set; }
-        public List<ProductPhotoViewModel> Photos { get; set; }
     }
 }

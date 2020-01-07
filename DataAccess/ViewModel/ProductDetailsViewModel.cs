@@ -20,6 +20,7 @@ namespace DataAccess.ViewModel
         public string Memory { get; set; }
         public string Display { get; set; }
         public string Details { get; set; }
+        public List<ProductPhotoViewModel> Photos { get; set; }
         public int ProductId { get; set; }
     }
 }
